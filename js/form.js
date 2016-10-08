@@ -8,9 +8,16 @@ $(document).ready(function () {
 
 //"Job Role" section of the form: 
     //reveal a text field when the "Other" option is selected from the "Job Role" drop down menu
-    //Make sure you add an text input field
-    //Use the id of "other-title" for the field
-    //Add placeholder text of "Your Title" for the field
+    $( "#title" ).change(function() {
+        if($(this).val() === "other"){
+            //Make sure you add an text input field - use the id of "other-title" for the field  
+            //Add placeholder text of "Your Title" for the field
+            $(this).closest("fieldset").append("<input type='text' id='other-title' name='user_added_role' placeholder='Your Title'>");
+        }
+    });
+    
+ 
+   
 
 //"T-Shirt Info" section of the form: 
     //for the T-Shirt color menu, only display the options that match the design selected in the "Design" menu.
