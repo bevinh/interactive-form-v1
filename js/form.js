@@ -1,23 +1,24 @@
-//Problem: Add Interactivity to the Form
+//TODO: Make sure that the error messages doesn't just keep repeating. Then move on to the other stuff :)
 
 
 //When the page loads, give focus to the first text field
 $(document).ready(function () {
-      $("#name").focus();
+    $("#name").focus();
+    //The "Credit Card" payment option should be selected by default and result in the display of the #credit-card div, and hide the "Paypal" and "Bitcoin information.
+    $("#payment").children("option[value='credit card']").attr("selected", true);
+     $('p:contains("Paypal")').hide();
+     $('p:contains("Bitcoin")').hide();
+     $("#credit-card").show();
+    $("#other-title").hide();
    });
 
 //"Job Role" section of the form: 
     //reveal a text field when the "Other" option is selected from the "Job Role" drop down menu
     $( "#title" ).change(function() {
         if($(this).val() === "other"){
-            //Make sure you add an text input field - use the id of "other-title" for the field  
-            //Add placeholder text of "Your Title" for the field
-            $(this).closest("fieldset").append("<input type='text' id='other-title' name='user_added_role' placeholder='Your Title'>");
+           $("#other-title").show();
         }
     });
-    
- 
-   
 
 //"T-Shirt Info" section of the form: 
     //for the T-Shirt color menu, only display the options that match the design selected in the "Design" menu.
@@ -102,23 +103,20 @@ $(document).ready(function () {
    
 
 //Payment Info section of the form: display payment sections based on chosen payment option
-    //The "Credit Card" payment option should be selected by default and result in the display of the #credit-card div, and hide the "Paypal" and "Bitcoin information.
-    $(document).ready(function(){
-        $("#payment").children("option[value='credit card']").attr("selected", true);
-    });
-//When a user selects the "PayPal" payment option, display the Paypal information, and hide the credit card information and the "Bitcoin" information.
-    //When a user selects the "Bitcoin" payment option, display the Bitcoin information, and hide the credit card information.
     $("#payment").change(function(){
+        //When a user selects the "PayPal" payment option, display the Paypal information, and hide the credit card information and the "Bitcoin" information.
         if($(this).val() === "paypal") {
             $('#credit-card').hide();
             $('p:contains("Bitcoin")').hide();
              $('p:contains("Paypal")').show();
         } 
+        //When a user selects the "Bitcoin" payment option, display the Bitcoin information, and hide the credit card and paypal information.
         if($(this).val() === "bitcoin") {
             $('#credit-card').hide();
             $('p:contains("Paypal")').hide();
              $('p:contains("Bitcoin")').show();
         }
+        //When a user selects the CC payment option, display the credit card information, and hide the paypal and bitcoin information.
         if($(this).val() === "credit card") {
             $("#credit-card").show();
             $('p:contains("Paypal")').hide();
@@ -127,15 +125,53 @@ $(document).ready(function () {
     });
     
 
-//Form validation: 
-    //display error messages and don't let the user submit the form if any of these validation errors exist:
+//Form validation: display error messages and don't let the user submit the form if any of these validation errors exist:
+function validateForm(){
     //Name field can't be empty
+    if ($('#name').val().length < 1) {
+        $("html, body").animate({ scrollTop: "200px" });
+        $("label[for=name").css("color", "red").append(" Whoops! You forgot your name!");        
+    }
     //Email field must be a validly formatted e-mail address (you don't have to check that it's a real e-mail address, just that it's formatted like one: dave@teamtreehouse.com for example. You'll need to use a regular expression to get this requirement. See the list of Resources for links to learn about regular expressions.
-    //At least one activity must be checked from the list under "Register for Actitivities."
+    if ($('#mail').val().length < 1) {
+         $("html, body").animate({ scrollTop: "200px" });
+        $("label[for=mail").css("color", "red").append(" Hmmm, your email doesn't seem to be quite right!");
+    }
+     //At least one activity must be checked from the list under "Register for Actitivities."
+    if ( $('input[type=checkbox]:checked').length <= 0) {
+        $("html, body").animate({ scrollTop: "200px" });
+        $(".activities legend").css("color", "red").append(" Hey, you might want to join an activity at the conference.");
+    }
     //Payment option must be selected.
+    if ($('#payment').val() === "select_method"){
+        $("html, body").animate({ scrollTop: "50px" });
+        $("label[for=payment").css("color", "red").append(" Whoops, you must have forgotten to pay.");
+    }
     //If "Credit card" is the selected payment option, make sure the user supplied a credit card number, a zip code, and a 3 number CVV val
+    if ($('#payment').val() === "credit card"){
+        if ($('#cc-num').val().length < 1) {
+            $("label[for=cc-num").css("color", "red").append(" Oh man, we can't process your payment if it's empty.");
+        }
+        if ($('#zip').val().length < 1) {
+            $("label[for=zip").css("color", "red").append(" Sorry, the credit card company needs your zip code.");
+        }
+        if ($('#cvv').val().length < 1) {
+            $("label[for=cvv").css("color", "red").append(" That's those 3 little numbers on the back. We need those.");
+        }
+    }
+}
 
-//When JavaScript is switched off or unavailable, all information required to be filled out should be visible. For example, the “Your Job Role” text field should already be available if someone selects “Other."
+    $("button[type=submit]").click(function( event ){
+        event.preventDefault();
+        validateForm();
+    });
+    
+    
+    
+   
+    
+    
+
 
 //Exceeds
 //Hide the "Color" label and select menu until a T-Shirt design is selected from the "Design" menu.

@@ -21,10 +21,10 @@
         <legend>Basic Info</legend>
         
         <label for="name">Name:</label>
-        <input type="text" id="name" name="user_name">
+        <input type="text" id="name" name="user_name" placeholder='Your Name'>
         
         <label for="mail">Email:</label>
-        <input type="email" id="mail" name="user_email">
+        <input type="email" id="mail" name="user_email" placeholder='Your Email'>
         
         <label for="title">Job Role</label>
         <select id="title" name="user_title">
@@ -34,7 +34,8 @@
           <option value="designer">Designer</option>          
           <option value="student">Student</option>
           <option value="other">Other</option>  
-        </select>           
+        </select> 
+          <input type='text' id='other-title' name='user_added_role' placeholder='Your Title'>
       </fieldset>
       
       <fieldset class="shirt">
@@ -151,7 +152,7 @@
     </form>
 
 	</div>
-    <script src="http://code.jquery.com/jquery-3.1.1.slim.min.js"   integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="   crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
     <script src="js/form.js"></script>
 </body>
 </html>
