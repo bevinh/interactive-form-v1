@@ -61,8 +61,8 @@ $(document).ready(function () {
 
     //Create a function to add and remove a div when you calculate the price
    function addRemovePrice(price) {
-       if ($("#priceDiv").length > 0){
-            $("#priceDiv").remove()
+       if ($("#priceDiv").length > 0) {
+            $("#priceDiv").remove();
             $(".activities").append("<div id='priceDiv'>$" + price);
        } else {
            $(".activities").append("<div id='priceDiv'>$" + price);
@@ -146,11 +146,11 @@ function validateCC(ccnum) {
     var lastDig = ccnum.split("").pop();
     //Drop the last digit
     ccnum = ccnum.slice(0, ccnum.length -1);
-    var ccnumArray = ccnum.split("")
+    var ccnumArray = ccnum.split("");
     //Reverse the digits
     ccnumArray.reverse();
     //Multiply odd digits by 2
-    for (var i = 0, l = ccnumArray.length; i < l; i+=2) {
+    for ( i = 0, l = ccnumArray.length; i < l; i+=2) {
         ccnumArray[i] *= 2;
         //Subtract 9 to numbers over 9
         if (ccnumArray[i] > 9) {
@@ -159,11 +159,10 @@ function validateCC(ccnum) {
     }
     var total = 0;
     var number;
-    for (var i = 0, l = ccnumArray.length; i < l; i+=1 ) {
+    for (i = 0, l = ccnumArray.length; i < l; i+=1 ) {
         number = parseInt(ccnumArray[i]);
         total = total + number;
     }
-    var isValid;
     var isDivisible = total % 10;
     if (isDivisible == lastDig) {
         if ($("#payment-invalid").length) {
@@ -189,7 +188,7 @@ function validateForm(){
     } else {
          if ($("#name-error").length) {
             $("#name-error").remove();
-            $("label[for=name").css("color", "black")
+            $("label[for=name").css("color", "black");
         } 
     }
     //Email field must be a validly formatted e-mail address (you don't have to check that it's a real e-mail address, just that it's formatted like one: dave@teamtreehouse.com for example. You'll need to use a regular expression to get this requirement. See the list of Resources for links to learn about regular expressions.
@@ -201,7 +200,7 @@ function validateForm(){
     } else {
          if ($("#mail-error").length) {
             $("#mail-error").remove();
-            $("label[for=mail").css("color", "black")
+            $("label[for=mail").css("color", "black");
         } 
     }
      //At least one activity must be checked from the list under "Register for Actitivities."
@@ -213,7 +212,7 @@ function validateForm(){
     } else {
          if ($("#activities-error").length) {
             $("#activites-error").remove();
-            $(".activities legend").css("color", "black")
+            $(".activities legend").css("color", "black");
         } 
     }
     //Payment option must be selected.
@@ -225,7 +224,7 @@ function validateForm(){
     } else {
          if ($("#payment-error").length) {
             $("#payment-error").remove();
-            $("label[for=payment").css("color", "black")
+            $("label[for=payment").css("color", "black");
         } 
     }
     //If "Credit card" is the selected payment option, make sure the user supplied a credit card number, a zip code, and a 3 number CVV val
@@ -243,11 +242,21 @@ function validateForm(){
             if (!$("#zip-error").length) {
             $("label[for=zip]").css("color", "red").append("<p id='zip-error'> Sorry, the credit card company needs your zip code.</p>");
             }
-        }
+        } else {
+             if ($("#zip-error").length) {
+                $("#zip-error").remove();
+                $("label[for=zip").css("color", "black");
+            } 
+    }
         if ($('#cvv').val().length < 1) {
             if (!$("#cvv-error").length) {
             $("label[for=cvv]").css("color", "red").append("<p id='cvv-error'>That's those 3 little numbers on the back. We need those.</p>");
             }
+        } else {
+             if ($("#cvv-error").length) {
+                $("#cvv-error").remove();
+                $("label[for=cvv").css("color", "black");
+            } 
         }
     }
 }
