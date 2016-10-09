@@ -41,12 +41,64 @@ $(document).ready(function () {
         }
     });
     
-    
+   function addRemovePrice(price) {
+       if ($("#priceDiv").length > 0){
+            $("#priceDiv").remove()
+            $(".activities").append("<div id='priceDiv'>$" + price);
+       } else {
+           $(".activities").append("<div id='priceDiv'>$" + price);
+       }
+   } 
 
 //"Register for Activities" section of the form:
     //Some events are at the same time as others. If the user selects a workshop, don't allow selection of a workshop at the same date and time -- you should disable the checkbox and visually indicate that the workshop in the competing time slot isn't available.
     //When a user unchecks an activity, make sure that competing activities (if there are any) are no longer disabled.
-    //As a user selects activities to register for, a running total is listed below the list of checkboxes. For example, if the user selects "Main conference" then Total: $200 should appear. If they add 1 workshop, the total should change to Total: $300.
+    $(".activities").click(function(){
+        var price = 0;
+        
+        if ($('input[name=all]').is(":checked")) {
+            price = price + 200;
+        } 
+        
+        if ($('input[name=js-frameworks]').is(":checked")) {
+            $('input[name=express]').attr("disabled", true);
+            price = price + 100;
+        } else {
+            $('input[name=express]').attr("disabled", false);
+        }
+        
+        if ($('input[name=js-libs]').is(":checked")) {
+            $('input[name=node]').attr("disabled", true);
+            price = price + 100;
+        } else {
+            $('input[name=node]').attr("disabled", false);
+        }
+        
+        if ($('input[name=express]').is(":checked")) {
+            $('input[name=js-frameworks]').attr("disabled", true);
+            price = price + 100;
+        } else {
+            $('input[name=js-frameworks]').attr("disabled", false);
+        } 
+        
+        if ($('input[name=node]').is(":checked")) {
+            $('input[name=js-libs]').attr("disabled", true);
+            price = price + 100;
+        } else {
+            $('input[name=js-libs]').attr("disabled", false);
+        }
+        
+        if ($('input[name=build-tools]').is(":checked")) {
+            price = price + 100;
+        }
+        if ($('input[name=npm]').is(":checked")) {
+            price = price + 100;
+        }
+         //As a user selects activities to register for, a running total is listed below the list of checkboxes. For example, if the user selects "Main conference" then Total: $200 should appear. If they add 1 workshop, the total should change to Total: $300.
+        addRemovePrice(price);
+    });
+    
+   
 
 //Payment Info section of the form: display payment sections based on chosen payment option
     //The "Credit Card" payment option should be selected by default and result in the display of the #credit-card div, and hide the "Paypal" and "Bitcoin information.
