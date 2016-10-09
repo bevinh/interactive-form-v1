@@ -40,7 +40,8 @@ $(document).ready(function () {
             $("#color").children('option[value="dimgrey"]').show();
         }
     });
-    
+
+    //Create a function to add and remove a div when you calculate the price
    function addRemovePrice(price) {
        if ($("#priceDiv").length > 0){
             $("#priceDiv").remove()
@@ -102,8 +103,29 @@ $(document).ready(function () {
 
 //Payment Info section of the form: display payment sections based on chosen payment option
     //The "Credit Card" payment option should be selected by default and result in the display of the #credit-card div, and hide the "Paypal" and "Bitcoin information.
-    //When a user selects the "PayPal" payment option, display the Paypal information, and hide the credit card information and the "Bitcoin" information.
+    $(document).ready(function(){
+        $("#payment").children("option[value='credit card']").attr("selected", true);
+    });
+//When a user selects the "PayPal" payment option, display the Paypal information, and hide the credit card information and the "Bitcoin" information.
     //When a user selects the "Bitcoin" payment option, display the Bitcoin information, and hide the credit card information.
+    $("#payment").change(function(){
+        if($(this).val() === "paypal") {
+            $('#credit-card').hide();
+            $('p:contains("Bitcoin")').hide();
+             $('p:contains("Paypal")').show();
+        } 
+        if($(this).val() === "bitcoin") {
+            $('#credit-card').hide();
+            $('p:contains("Paypal")').hide();
+             $('p:contains("Bitcoin")').show();
+        }
+        if($(this).val() === "credit card") {
+            $("#credit-card").show();
+            $('p:contains("Paypal")').hide();
+            $('p:contains("Bitcoin")').hide();
+        } 
+    });
+    
 
 //Form validation: 
     //display error messages and don't let the user submit the form if any of these validation errors exist:
