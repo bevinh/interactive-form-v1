@@ -10,6 +10,15 @@ $(document).ready(function () {
     //Hide the "Color" label and select menu until a T-Shirt design is selected from the "Design" menu.
     $("label[for=color]").hide();
     $("#color").hide();
+    
+    //Style all the dropdowns using both jQuery and CSS
+    $("#design").addClass("styled-select");
+    $("#size").addClass("styled-select");
+    $("#color").addClass("styled-select");
+    $("#payment").addClass("styled-select");
+    $("#title").addClass("styled-select");
+    $("#exp-month").addClass("styled-select");
+    $("#exp-year").addClass("styled-select");
    });
 
 //"Job Role" section of the form: 
@@ -247,13 +256,3 @@ function validateForm(){
         event.preventDefault();
         validateForm();
     });
-    
-    
-    
-   
-    
-    
-
-
-//Exceeds
-//Style the "select" menus (drop down menus) on the form, so they match the styling of the text fields (see Resources links for an article on how to improve the look of select menus using CSS and JavaScript

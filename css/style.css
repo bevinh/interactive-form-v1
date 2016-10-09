@@ -1,3 +1,18 @@
+/* Styles used by dropdown */
+.styled-select {
+   height: 29px;
+   overflow: hidden;
+   font-size: 1em;
+   font-weight: 500;
+   padding: .8em;
+   background: #c1deeb;
+   border: 2px solid #c1deeb;
+   outline: none;
+   width: 100%;
+}
+
+
+
 /* ================================= 
   Base Element Styles
 ==================================== */
