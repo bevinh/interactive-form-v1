@@ -10,6 +10,9 @@ $(document).ready(function () {
      $('p:contains("Bitcoin")').hide();
      $("#credit-card").show();
     $("#other-title").hide();
+    //Hide the "Color" label and select menu until a T-Shirt design is selected from the "Design" menu.
+    $("label[for=color]").hide();
+    $("#color").hide();
    });
 
 //"Job Role" section of the form: 
@@ -23,6 +26,14 @@ $(document).ready(function () {
 //"T-Shirt Info" section of the form: 
     //for the T-Shirt color menu, only display the options that match the design selected in the "Design" menu.
     $("#design").change(function(){
+        //if the Select Theme is chosen, make sure the color label is hidden
+        if ($(this).children('option:first-child').is(':selected')){
+            $("label[for=color]").hide();
+            $("#color").hide();
+        } else {
+        $("label[for=color]").show();
+        $("#color").show();
+        }
         //If the user selects "Theme - JS Puns" then the color menu should only display "Cornflower Blue," "Dark Slate Grey," and "Gold."
         if($(this).val() === "js puns") {
             $("#color").children('option[value="tomato"]').hide();
@@ -150,13 +161,13 @@ function validateForm(){
     //If "Credit card" is the selected payment option, make sure the user supplied a credit card number, a zip code, and a 3 number CVV val
     if ($('#payment').val() === "credit card"){
         if ($('#cc-num').val().length < 1) {
-            $("label[for=cc-num").css("color", "red").append(" Oh man, we can't process your payment if it's empty.");
+            $("label[for=cc-num]").css("color", "red").append(" Oh man, we can't process your payment if it's empty.");
         }
         if ($('#zip').val().length < 1) {
-            $("label[for=zip").css("color", "red").append(" Sorry, the credit card company needs your zip code.");
+            $("label[for=zip]").css("color", "red").append(" Sorry, the credit card company needs your zip code.");
         }
         if ($('#cvv').val().length < 1) {
-            $("label[for=cvv").css("color", "red").append(" That's those 3 little numbers on the back. We need those.");
+            $("label[for=cvv]").css("color", "red").append(" That's those 3 little numbers on the back. We need those.");
         }
     }
 }
@@ -174,6 +185,5 @@ function validateForm(){
 
 
 //Exceeds
-//Hide the "Color" label and select menu until a T-Shirt design is selected from the "Design" menu.
 //Style the "select" menus (drop down menus) on the form, so they match the styling of the text fields (see Resources links for an article on how to improve the look of select menus using CSS and JavaScript
 //Validate the credit card number so that it's a validly formatted credit card number. (see the Resources links for information on how to do this.)
