@@ -1,6 +1,3 @@
-//TODO: Make sure that the error messages doesn't just keep repeating. Then move on to the other stuff :)
-
-
 //When the page loads, give focus to the first text field
 $(document).ready(function () {
     $("#name").focus();
@@ -134,40 +131,97 @@ $(document).ready(function () {
             $('p:contains("Bitcoin")').hide();
         } 
     });
-    
 
+//Validate the credit card number so that it's a validly formatted credit card number. 
+function validateCC(ccnum) {
+    var lastDig = ccnum.split("").pop();
+    //Drop the last digit
+    ccnum = ccnum.slice(0, ccnum.length -1);
+    var ccnumArray = ccnum.split("")
+    //Reverse the digits
+    ccnumArray.reverse();
+    //Multiply odd digits by 2
+    for (var i = 0, l = ccnumArray.length; i < l; i+=2) {
+        ccnumArray[i] *= 2;
+        //Subtract 9 to numbers over 9
+        if (ccnumArray[i] > 9) {
+            ccnumArray[i] -= 9;
+        }
+    }
+    var total = 0;
+    var number;
+    for (var i = 0, l = ccnumArray.length; i < l; i+=1 ) {
+        number = parseInt(ccnumArray[i]);
+        total = total + number;
+    }
+    var isValid;
+    var isDivisible = total % 10;
+    if (isDivisible == lastDig) {
+        if ($("#payment-invalid").length) {
+            $("#payment-invalid").remove();
+            $("label[for=cc-num]").css("color", "black");
+        }
+    } else {
+        if (!$("#payment-invalid").length) {
+            $("label[for=cc-num]").append("<p id='payment-invalid'>Your credit card number is invalid. Did you perhaps type it wrong?</p>").css("color", "red");
+            
+        } 
+    }
+   
+}
 //Form validation: display error messages and don't let the user submit the form if any of these validation errors exist:
 function validateForm(){
     //Name field can't be empty
     if ($('#name').val().length < 1) {
         $("html, body").animate({ scrollTop: "200px" });
-        $("label[for=name").css("color", "red").append(" Whoops! You forgot your name!");        
+        if (!$("#name-error").length) {
+            $("label[for=name").css("color", "red").append("<p id='name-error'> Whoops! You forgot your name! </p>"); 
+        } 
+    } else {
+         if ($("#name-error").length) {
+            $("#name-error").remove();
+            $("label[for=name").css("color", "black")
+        } 
     }
     //Email field must be a validly formatted e-mail address (you don't have to check that it's a real e-mail address, just that it's formatted like one: dave@teamtreehouse.com for example. You'll need to use a regular expression to get this requirement. See the list of Resources for links to learn about regular expressions.
     if ($('#mail').val().length < 1) {
          $("html, body").animate({ scrollTop: "200px" });
-        $("label[for=mail").css("color", "red").append(" Hmmm, your email doesn't seem to be quite right!");
+        if (!$("#mail-error").length) {
+        $("label[for=mail").css("color", "red").append("<p id='mail-error'> Hmmm, your email doesn't seem to be quite right!</p>");
+        }
     }
      //At least one activity must be checked from the list under "Register for Actitivities."
     if ( $('input[type=checkbox]:checked').length <= 0) {
         $("html, body").animate({ scrollTop: "200px" });
-        $(".activities legend").css("color", "red").append(" Hey, you might want to join an activity at the conference.");
+        if (!$("#activities-error").length) {
+            $(".activities legend").css("color", "red").append("<p id='activities-error'>Hey, you might want to join an activity at the conference.</p>");
+        }
     }
     //Payment option must be selected.
     if ($('#payment').val() === "select_method"){
         $("html, body").animate({ scrollTop: "50px" });
-        $("label[for=payment").css("color", "red").append(" Whoops, you must have forgotten to pay.");
+        if (!$("#payment-error").length) {
+            $("label[for=payment").css("color", "red").append("<p id='payment-error'> Whoops, you must have forgotten to pay.</p>");
+        }
     }
     //If "Credit card" is the selected payment option, make sure the user supplied a credit card number, a zip code, and a 3 number CVV val
     if ($('#payment').val() === "credit card"){
         if ($('#cc-num').val().length < 1) {
-            $("label[for=cc-num]").css("color", "red").append(" Oh man, we can't process your payment if it's empty.");
+            if (!$("#cc-num-error").length) {
+            $("label[for=cc-num]").css("color", "red").append("<p id='cc-num-error'>Oh man, we can't process your payment if it's empty.</p>");
+            }
+        } else {
+            validateCC($('#cc-num').val());
         }
         if ($('#zip').val().length < 1) {
-            $("label[for=zip]").css("color", "red").append(" Sorry, the credit card company needs your zip code.");
+            if (!$("#zip-error").length) {
+            $("label[for=zip]").css("color", "red").append("<p id='zip-error'> Sorry, the credit card company needs your zip code.</p>");
+            }
         }
         if ($('#cvv').val().length < 1) {
-            $("label[for=cvv]").css("color", "red").append(" That's those 3 little numbers on the back. We need those.");
+            if (!$("#cvv-error").length) {
+            $("label[for=cvv]").css("color", "red").append("<p id='cvv-error'>That's those 3 little numbers on the back. We need those.</p>");
+            }
         }
     }
 }
@@ -186,4 +240,3 @@ function validateForm(){
 
 //Exceeds
 //Style the "select" menus (drop down menus) on the form, so they match the styling of the text fields (see Resources links for an article on how to improve the look of select menus using CSS and JavaScript
-//Validate the credit card number so that it's a validly formatted credit card number. (see the Resources links for information on how to do this.)
