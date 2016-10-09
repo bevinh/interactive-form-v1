@@ -189,6 +189,11 @@ function validateForm(){
         if (!$("#mail-error").length) {
         $("label[for=mail").css("color", "red").append("<p id='mail-error'> Hmmm, your email doesn't seem to be quite right!</p>");
         }
+    } else {
+         if ($("#mail-error").length) {
+            $("#mail-error").remove();
+            $("label[for=mail").css("color", "black")
+        } 
     }
      //At least one activity must be checked from the list under "Register for Actitivities."
     if ( $('input[type=checkbox]:checked').length <= 0) {
@@ -196,6 +201,11 @@ function validateForm(){
         if (!$("#activities-error").length) {
             $(".activities legend").css("color", "red").append("<p id='activities-error'>Hey, you might want to join an activity at the conference.</p>");
         }
+    } else {
+         if ($("#activities-error").length) {
+            $("#activites-error").remove();
+            $(".activities legend").css("color", "black")
+        } 
     }
     //Payment option must be selected.
     if ($('#payment').val() === "select_method"){
@@ -203,6 +213,11 @@ function validateForm(){
         if (!$("#payment-error").length) {
             $("label[for=payment").css("color", "red").append("<p id='payment-error'> Whoops, you must have forgotten to pay.</p>");
         }
+    } else {
+         if ($("#payment-error").length) {
+            $("#payment-error").remove();
+            $("label[for=payment").css("color", "black")
+        } 
     }
     //If "Credit card" is the selected payment option, make sure the user supplied a credit card number, a zip code, and a 3 number CVV val
     if ($('#payment').val() === "credit card"){
@@ -211,6 +226,8 @@ function validateForm(){
             $("label[for=cc-num]").css("color", "red").append("<p id='cc-num-error'>Oh man, we can't process your payment if it's empty.</p>");
             }
         } else {
+            $("#cc-num-error").remove();
+             $("label[for=cc-num]").css("color", "black");
             validateCC($('#cc-num').val());
         }
         if ($('#zip').val().length < 1) {
