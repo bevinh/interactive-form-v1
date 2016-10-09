@@ -21,8 +21,27 @@ $(document).ready(function () {
 
 //"T-Shirt Info" section of the form: 
     //for the T-Shirt color menu, only display the options that match the design selected in the "Design" menu.
-    //If the user selects "Theme - JS Puns" then the color menu should only display "Cornflower Blue," "Dark Slate Grey," and "Gold."
-    //If the user selects "Theme - I ♥ JS" then the color menu should only display "Tomato," "Steel Blue," and "Dim Grey."
+    $("#design").change(function(){
+        //If the user selects "Theme - JS Puns" then the color menu should only display "Cornflower Blue," "Dark Slate Grey," and "Gold."
+        if($(this).val() === "js puns") {
+            $("#color").children('option[value="tomato"]').hide();
+            $("#color").children('option[value="steelblue"]').hide();
+            $("#color").children('option[value="dimgrey"]').hide();
+            $("#color").children('option[value="cornflowerblue"]').show();
+            $("#color").children('option[value="darkslategrey"]').show();
+            $("#color").children('option[value="gold"]').show();
+        } else if ($(this).val() === "heart js") {
+            //If the user selects "Theme - I ♥ JS" then the color menu should only display "Tomato," "Steel Blue," and "Dim Grey."
+            $("#color").children('option[value="cornflowerblue"]').hide();
+            $("#color").children('option[value="darkslategrey"]').hide();
+            $("#color").children('option[value="gold"]').hide();
+            $("#color").children('option[value="tomato"]').show();
+            $("#color").children('option[value="steelblue"]').show();
+            $("#color").children('option[value="dimgrey"]').show();
+        }
+    });
+    
+    
 
 //"Register for Activities" section of the form:
     //Some events are at the same time as others. If the user selects a workshop, don't allow selection of a workshop at the same date and time -- you should disable the checkbox and visually indicate that the workshop in the competing time slot isn't available.
