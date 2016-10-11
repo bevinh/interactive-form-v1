@@ -1,12 +1,15 @@
+var i; //counter variable
+
 //When the page loads, give focus to the first text field
 $(document).ready(function () {
     $("#name").focus();
     //The "Credit Card" payment option should be selected by default and result in the display of the #credit-card div, and hide the "Paypal" and "Bitcoin information.
     $("#payment").children("option[value='credit card']").attr("selected", true);
-     $('p:contains("Paypal")').hide();
-     $('p:contains("Bitcoin")').hide();
-     $("#credit-card").show();
+    $("p:contains('Paypal')").hide();
+    $("p:contains('Bitcoin')").hide();
+    $("#credit-card").show();
     $("#other-title").hide();
+
     //Hide the "Color" label and select menu until a T-Shirt design is selected from the "Design" menu.
     $("label[for=color]").hide();
     $("#color").hide();
@@ -21,7 +24,7 @@ $(document).ready(function () {
     $("#exp-year").addClass("styled-select");
    });
 
-//"Job Role" section of the form: 
+//"Job Role" section of the form:
     //reveal a text field when the "Other" option is selected from the "Job Role" drop down menu
     $( "#title" ).change(function() {
         if($(this).val() === "other"){
@@ -150,7 +153,8 @@ function validateCC(ccnum) {
     //Reverse the digits
     ccnumArray.reverse();
     //Multiply odd digits by 2
-    for ( i = 0, l = ccnumArray.length; i < l; i+=2) {
+    var l = ccnumArray.length; 
+    for ( i = 0; i < l; i+=2) {
         ccnumArray[i] *= 2;
         //Subtract 9 to numbers over 9
         if (ccnumArray[i] > 9) {
@@ -164,7 +168,7 @@ function validateCC(ccnum) {
         total = total + number;
     }
     var isDivisible = total % 10;
-    if (isDivisible == lastDig) {
+    if (isDivisible === lastDig) {
         if ($("#payment-invalid").length) {
             $("#payment-invalid").remove();
             $("label[for=cc-num]").css("color", "black");
