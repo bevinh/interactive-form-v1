@@ -70,7 +70,7 @@ $(document).ready(function () {
        } else {
            $(".activities").append("<div id='priceDiv'>$" + price);
        }
-   } 
+   }
 
 //"Register for Activities" section of the form:
     //Some events are at the same time as others. If the user selects a workshop, don't allow selection of a workshop at the same date and time -- you should disable the checkbox and visually indicate that the workshop in the competing time slot isn't available.
@@ -80,7 +80,7 @@ $(document).ready(function () {
         
         if ($('input[name=all]').is(":checked")) {
             price = price + 200;
-        } 
+        }
         
         if ($('input[name=js-frameworks]').is(":checked")) {
             $('input[name=express]').attr("disabled", true);
@@ -101,7 +101,7 @@ $(document).ready(function () {
             price = price + 100;
         } else {
             $('input[name=js-frameworks]').attr("disabled", false);
-        } 
+        }
         
         if ($('input[name=node]').is(":checked")) {
             $('input[name=js-libs]').attr("disabled", true);
@@ -113,6 +113,7 @@ $(document).ready(function () {
         if ($('input[name=build-tools]').is(":checked")) {
             price = price + 100;
         }
+        
         if ($('input[name=npm]').is(":checked")) {
             price = price + 100;
         }
@@ -129,7 +130,7 @@ $(document).ready(function () {
             $('#credit-card').hide();
             $('p:contains("Bitcoin")').hide();
              $('p:contains("Paypal")').show();
-        } 
+        }
         //When a user selects the "Bitcoin" payment option, display the Bitcoin information, and hide the credit card and paypal information.
         if($(this).val() === "bitcoin") {
             $('#credit-card').hide();
@@ -141,7 +142,7 @@ $(document).ready(function () {
             $("#credit-card").show();
             $('p:contains("Paypal")').hide();
             $('p:contains("Bitcoin")').hide();
-        } 
+        }
     });
 
 //Validate the credit card number so that it's a validly formatted credit card number. 
@@ -177,7 +178,7 @@ function validateCC(ccnum) {
         if (!$("#payment-invalid").length) {
             $("label[for=cc-num]").append("<p id='payment-invalid'>Your credit card number is invalid. Did you perhaps type it wrong?</p>").css("color", "red");
             
-        } 
+        }
     }
    
 }
@@ -188,12 +189,12 @@ function validateForm(){
         $("html, body").animate({ scrollTop: "200px" });
         if (!$("#name-error").length) {
             $("label[for=name").css("color", "red").append("<p id='name-error'> Whoops! You forgot your name! </p>"); 
-        } 
+        }
     } else {
          if ($("#name-error").length) {
             $("#name-error").remove();
             $("label[for=name").css("color", "black");
-        } 
+        }
     }
     //Email field must be a validly formatted e-mail address (you don't have to check that it's a real e-mail address, just that it's formatted like one: dave@teamtreehouse.com for example. You'll need to use a regular expression to get this requirement. See the list of Resources for links to learn about regular expressions.
     if ($('#mail').val().length < 1) {
@@ -205,7 +206,7 @@ function validateForm(){
          if ($("#mail-error").length) {
             $("#mail-error").remove();
             $("label[for=mail").css("color", "black");
-        } 
+        }
     }
      //At least one activity must be checked from the list under "Register for Actitivities."
     if ( $('input[type=checkbox]:checked').length <= 0) {
@@ -217,7 +218,7 @@ function validateForm(){
          if ($("#activities-error").length) {
             $("#activites-error").remove();
             $(".activities legend").css("color", "black");
-        } 
+        }
     }
     //Payment option must be selected.
     if ($('#payment').val() === "select_method"){
@@ -229,7 +230,7 @@ function validateForm(){
          if ($("#payment-error").length) {
             $("#payment-error").remove();
             $("label[for=payment").css("color", "black");
-        } 
+        }
     }
     //If "Credit card" is the selected payment option, make sure the user supplied a credit card number, a zip code, and a 3 number CVV val
     if ($('#payment').val() === "credit card"){
@@ -250,7 +251,7 @@ function validateForm(){
              if ($("#zip-error").length) {
                 $("#zip-error").remove();
                 $("label[for=zip").css("color", "black");
-            } 
+            }
     }
         if ($('#cvv').val().length < 1) {
             if (!$("#cvv-error").length) {
@@ -260,12 +261,13 @@ function validateForm(){
              if ($("#cvv-error").length) {
                 $("#cvv-error").remove();
                 $("label[for=cvv").css("color", "black");
-            } 
+            }
         }
     }
 }
 
-    $("button[type=submit]").click(function( event ){
-        event.preventDefault();
-        validateForm();
-    });
+//Intercept the button action and validate the form before a submit action
+$("button[type=submit]").click(function( event ){
+    event.preventDefault();
+    validateForm();
+});
