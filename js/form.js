@@ -178,6 +178,9 @@ function validateCC(ccnum) {
         if (!$("#payment-invalid").length) {
             $("label[for=cc-num]").append("<p id='payment-invalid'>Your credit card number is invalid. Did you perhaps type it wrong?</p>").css("color", "red");
             
+        } else {
+            $("#payment-invalid").remove();
+            $("label[for=cc-num]").css("color", "black");
         }
     }
    
@@ -201,12 +204,22 @@ function validateForm(){
          $("html, body").animate({ scrollTop: "200px" });
         if (!$("#mail-error").length) {
         $("label[for=mail").css("color", "red").append("<p id='mail-error'> Hmmm, your email doesn't seem to be quite right!</p>");
-        }
+        } 
     } else {
          if ($("#mail-error").length) {
             $("#mail-error").remove();
             $("label[for=mail").css("color", "black");
         }
+    
+    var mailAt = $('#mail').val();
+    if ((mailAt.indexOf('@')>= 0)){
+            console.log("valid email");
+        
+        } else {
+            $("label[for=mail").css("color", "red").append("<p id='mail-error'> Wait, your email is missing the @ symbol!</p>");
+        }
+    
+     
     }
      //At least one activity must be checked from the list under "Register for Actitivities."
     if ( $('input[type=checkbox]:checked').length <= 0) {
